@@ -27,8 +27,6 @@ public class CustomerAccountPage extends Base {
     @FindBy(css="a[href^='/creditcard/list']")
     public WebElement creditCardsLink;
 
-    //    my account - remove same page loads
-
     @FindBy(css="a[href^='/cart/list/'] img[src]")
     public WebElement cartImageLink;
 

@@ -2,7 +2,6 @@
 Feature: Login Functionality
   This is to verify that only users with valid credentials are able to login into MyStoreFront Demo.
 
-
   Scenario Outline: User should only be able to login with valid credentials
     Given I navigate to the StoreFront Demo home page "Login functionally Tests"
     When I click on the login link

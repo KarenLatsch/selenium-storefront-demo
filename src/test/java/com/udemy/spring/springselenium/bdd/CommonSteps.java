@@ -1,24 +1,24 @@
 package com.udemy.spring.springselenium.bdd;
 
 import com.aventstack.extentreports.ExtentTest;
+import com.udemy.spring.springselenium.SpringBaseTestNGtest;
 import com.udemy.spring.springselenium.flow.MyDriver;
 import com.udemy.spring.springselenium.pages.AppPages;
-import io.cucumber.java.After;
+import com.udemy.spring.springselenium.report.MyExtentReport;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
 import io.cucumber.spring.CucumberContextConfiguration;
+import io.cucumber.spring.CucumberTestContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Lazy;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 
-
-@SpringBootTest
 @CucumberContextConfiguration
-public class CommonSteps extends MyExtentReport{
+public class CommonSteps extends SpringBaseTestNGtest {
 
     @Autowired
     private AppPages appPages;
@@ -26,45 +26,37 @@ public class CommonSteps extends MyExtentReport{
     @Autowired
     public MyDriver myDriver;
 
-    @Lazy
     @Autowired
-    private ApplicationContext applicationContext;
-
-    ExtentTest eTest;
+    MyExtentReport myExtentReport;
 
 
-    @After
-    public void flushExtentReport(){
-//        this.applicationContext.getBean(WebDriver.class).quit();
-        flushReport();
-    }
+    String scenarioName;
 
     @Before
-    public void createExtentReport(){
-        configExtentReports();
+    public void getScenarioName(){
+        scenarioName = CommonSteps.class.getName();
+
     }
-
-
 
     @Given("I navigate to the StoreFront Demo home page {string}")
     public void navigateToStoreFrontDemoHomePage(String testName) {
-        eTest = extent.createTest( testName + " has start");
+
+        myExtentReport.createTest(testName, scenarioName);
         myDriver.getStorefrontHomePage();
-        eTest.info("Navigating to Storefront Home page");
+        myExtentReport.getETest().info("Navigated to Storefront Home page");
     }
 
     @When("I click on the login link")
     public void clickLogin() {
         clickLogout();
         appPages.storefrontHomePage.clickloginLink();
-        eTest.info("Clicking Login Link");
-
+        myExtentReport.getETest().info("Clicked on Login");
     }
 
     public void clickLogout (){
         try {
             appPages.customerHomePage.clickLogoutLink();
-            eTest.info("Clicking Logout Link");
+            myExtentReport.getETest().info("Clicked on Logout");
         } catch (Exception e) {
         }
     }
@@ -72,15 +64,24 @@ public class CommonSteps extends MyExtentReport{
     @And("I then enter in username {string} and password {string}")
     public void enterUsernameAndPassword(String username, String password) {
         appPages.storefrontLoginPage.sendKeysUsername(username);
-        eTest.info("Entering in Username");
+        myExtentReport.getETest().info("Entered in Username");
         appPages.storefrontLoginPage.sendKeysPassword(password);
-        eTest.info("Entering in Password");
+        myExtentReport.getETest().info("Entered in Password");
     }
 
     @And("I click on the login button")
     public void ClickLoginButton() {
         appPages.storefrontLoginPage.clickLoginButton();
-        eTest.info("Clicking Login Button");
+        myExtentReport.getETest().info("Clicked on Login Button");
     }
 
+
+//    @AfterMethod
+//    public void getResult(ITestResult result){
+//        if(result.getStatus() == ITestResult.FAILURE){
+//            myExtentReport.getETest().fail("Test Case Failed is "+result.getName());
+//            myExtentReport.getETest().fail("Test Case Failed is "+result.getThrowable());
+//            }
+//
+//        }
 }

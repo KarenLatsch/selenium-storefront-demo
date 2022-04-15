@@ -5,7 +5,6 @@ Feature: Customer purchase Functionality
     Given I navigate to the StoreFront Demo home page "Customer purchase Functionality Tests"
     When I click on the login link
 
-
   Scenario Outline: Customer can delete items from their cart
     And I then enter in username "<username>" and password "<password>"
     And I click on the login button
@@ -18,7 +17,6 @@ Feature: Customer purchase Functionality
     Examples:
       |username |password |
       |ssmith   |password |
-
 
   Scenario Outline: Customer can checkout with items in cart and place an order
     And I then enter in username "<username>" and password "<password>"

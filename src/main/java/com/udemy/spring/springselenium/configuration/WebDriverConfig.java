@@ -18,11 +18,15 @@ public class WebDriverConfig {
     @Value("${default.timeout:30}")
     private int timeout;
 
+    WebDriver driver;
+
     @Bean
     @ConditionalOnProperty(name = "browser", havingValue = "chrome")
     public WebDriver chromeDriver() {
         WebDriverManager.chromedriver().setup();
-        return new ChromeDriver();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        return driver;
     }
 
 //    firefox is not working come back to later

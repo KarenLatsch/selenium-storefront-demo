@@ -5,7 +5,6 @@ Feature: Customer Account Functionality
     Given I navigate to the StoreFront Demo home page "Customer Account Functionality Tests"
     When I click on the login link
 
-
   Scenario Outline: Customer can change their current password to a new password
     And I then enter in username "<username>" and password "<password>"
     And I click on the login button
@@ -20,7 +19,6 @@ Feature: Customer Account Functionality
       |ssmith   |password2|password2         |pass111    |pass           |not changed |
       |ssmith   |password2|password          |newpass    |newpass        |not changed |
       |ssmith   |password2|password2         |password   |password       |changed     |
-
 
   Scenario Outline: Customer can change their current account information
     And I then enter in username "<username>" and password "<password>"
@@ -45,7 +43,6 @@ Feature: Customer Account Functionality
       |ssmith   |password |changed |
       |mweston  |password |not changed|
 
-
   Scenario Outline: Customers credit card list must match the credit card information on edit screen
     And I then enter in username "<username>" and password "<password>"
     And I click on the login button
@@ -57,7 +54,6 @@ Feature: Customer Account Functionality
     Examples:
       |username |password |
       |ssmith   |password |
-
 
   Scenario Outline: Customers can add a credit card to their account information
     And I then enter in username "<username>" and password "<password>"
@@ -85,7 +81,6 @@ Feature: Customer Account Functionality
     Examples:
       |username |password |
       |ssmith   |password |
-
 
   Scenario Outline: Customers can delete a credit card from their account information
     And I then enter in username "<username>" and password "<password>"
