@@ -1,6 +1,5 @@
 package com.udemy.spring.springselenium.bdd;
 
-import com.aventstack.extentreports.ExtentTest;
 import com.udemy.spring.springselenium.SpringBaseTestNGtest;
 import com.udemy.spring.springselenium.flow.MyDriver;
 import com.udemy.spring.springselenium.pages.AppPages;
@@ -10,12 +9,10 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-
 import io.cucumber.spring.CucumberContextConfiguration;
-import io.cucumber.spring.CucumberTestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 
 @CucumberContextConfiguration
 public class CommonSteps extends SpringBaseTestNGtest {
@@ -29,26 +26,25 @@ public class CommonSteps extends SpringBaseTestNGtest {
     @Autowired
     MyExtentReport myExtentReport;
 
-
     String scenarioName;
 
     @Before
-    public void getScenarioName(){
-        scenarioName = CommonSteps.class.getName();
-
+    public void getScenarioName(Scenario scenario){
+        scenarioName = scenario.getName();
     }
 
-    @Given("I navigate to the StoreFront Demo home page {string}")
-    public void navigateToStoreFrontDemoHomePage(String testName) {
-
-        myExtentReport.createTest(testName, scenarioName);
+    @Given("I navigate to the StoreFront Demo home page")
+    public void navigateToStoreFrontDemoHomePage() {
+        myExtentReport.createTest(scenarioName);
         myDriver.getStorefrontHomePage();
         myExtentReport.getETest().info("Navigated to Storefront Home page");
     }
 
     @When("I click on the login link")
     public void clickLogin() {
+        myDriver.getDriverWait();
         clickLogout();
+        myDriver.getDriverWait();
         appPages.storefrontHomePage.clickloginLink();
         myExtentReport.getETest().info("Clicked on Login");
     }
@@ -75,13 +71,12 @@ public class CommonSteps extends SpringBaseTestNGtest {
         myExtentReport.getETest().info("Clicked on Login Button");
     }
 
+    @AfterTest
+    public void getResult(ITestResult result){
+        if(result.getStatus() == ITestResult.FAILURE){
+            myExtentReport.getETest().fail("Test Case Failed is "+result.getName());
+            myExtentReport.getETest().fail("Test Case Failed is "+result.getThrowable());
+        }
+    }
 
-//    @AfterMethod
-//    public void getResult(ITestResult result){
-//        if(result.getStatus() == ITestResult.FAILURE){
-//            myExtentReport.getETest().fail("Test Case Failed is "+result.getName());
-//            myExtentReport.getETest().fail("Test Case Failed is "+result.getThrowable());
-//            }
-//
-//        }
 }

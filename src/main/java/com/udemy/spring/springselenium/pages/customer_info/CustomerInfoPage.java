@@ -3,10 +3,8 @@ package com.udemy.spring.springselenium.pages.customer_info;
 import com.udemy.spring.springselenium.pages.Base;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-@Lazy
 @Component
 public class CustomerInfoPage extends Base{
 
@@ -27,7 +25,6 @@ public class CustomerInfoPage extends Base{
 
     @FindBy(css="input[id='shippingAddress.addressLine2']")
     public WebElement address2;
-
 
     @FindBy(css="input[id='shippingAddress.city']")
     public WebElement city;
@@ -83,43 +80,6 @@ public class CustomerInfoPage extends Base{
 
     public void clickUpdateInfoButton() {
         this.updateInfoButton.click();
-    }
-
-    public void clearFirstName() {
-        this.firstName.clear();
-    }
-
-    public void clearLastName() {
-        this.lastName.clear();
-    }
-
-    public void clearEmail() {
-        this.email.clear();
-    }
-
-    public void clearPhoneNumber() {
-        this.phoneNumber.clear();
-    }
-    public void clearAddressLine1() {
-        this.address1.clear();
-    }
-
-    public void clearAddressLine2() {
-        this.address2.clear();
-    }
-
-    public void clearCity() {
-        this.city.clear();
-    }
-    public void clearState() {
-        this.state.clear();
-    }
-    public void clearZipCode() {
-        this.zipCode.clear();
-    }
-
-    public void clearUser() {
-        this.username.clear();
     }
 
     public void clearAllFields() {

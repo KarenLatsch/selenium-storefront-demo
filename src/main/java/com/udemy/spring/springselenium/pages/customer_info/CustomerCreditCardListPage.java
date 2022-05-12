@@ -3,29 +3,12 @@ package com.udemy.spring.springselenium.pages.customer_info;
 import com.udemy.spring.springselenium.pages.Base;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Lazy
 @Component
 public class CustomerCreditCardListPage extends Base {
-
-    @FindBy(css="a[href='/logout/customer']")
-    public WebElement logoutLink;
-
-    @FindBy(css="a[href^='/storefront/viewaccount/']")
-    public WebElement myAccountLink;
-
-    @FindBy(css="a[href^='/cart/list/'] img[src]")
-    public WebElement cartImageLink;
-
-    @FindBy(css="a[href^='/cart/list/']")
-    public WebElement itemsInCartLink;
-
-    @FindBy(css="a[href^='/checkoutPage/']")
-    public WebElement checkoutButton;
 
     @FindBy(xpath="//tbody/tr/td[1]")
     public List<WebElement> cardTypeList;
@@ -41,26 +24,6 @@ public class CustomerCreditCardListPage extends Base {
 
     @FindBy(css="a[href='/creditcard/new']")
     public WebElement addCreditCardLink;
-
-    public void clickLogoutLink() {
-        this.logoutLink.click();
-    }
-
-    public void clickMyAccountLink() {
-        this.myAccountLink.click();
-    }
-
-    public void clickCartImageLink() {
-        this.cartImageLink.click();
-    }
-
-    public void clickItemsInCartLink() {
-        this.itemsInCartLink.click();
-    }
-
-    public void clickCheckoutButton() {
-        this.checkoutButton.click();
-    }
 
     public int getCardTypeListSize() {
         return this.cardTypeList.size();

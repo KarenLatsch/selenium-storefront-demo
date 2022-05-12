@@ -23,7 +23,6 @@ public class CustomerAccountSteps extends SpringBaseTestNGtest {
     @Autowired
     MyExtentReport myExtentReport;
 
-    private int size;
     private String cardType;
     private String cardNumber;
     private String newCardNumber;
@@ -66,12 +65,7 @@ public class CustomerAccountSteps extends SpringBaseTestNGtest {
         if (currentURL.equals(customerChangePasswordPage)) {
             passwordChanged = "not changed";
         }
-
-        try {
-            Assert.assertEquals(passwordChanged, result);
-        } catch (Exception e){
-            myExtentReport.getETest().fail("The Status of a Changed Password Differs from Expected Results");
-        }
+        Assert.assertEquals(passwordChanged, result);
     }
 
     @And("I click on the customer information link")
@@ -125,12 +119,7 @@ public class CustomerAccountSteps extends SpringBaseTestNGtest {
             customerUpdated = "not changed";} else {
             customerUpdated = "changed";
         }
-
-        try {
-            Assert.assertEquals(customerUpdated, expectedResult);
-        } catch (Exception e){
-            myExtentReport.getETest().fail("The Status of Customer's Updated Information Differs from Expected Results");
-        }
+        Assert.assertEquals(customerUpdated, expectedResult);
     }
 
     @And("I click on the credit cards link")
@@ -139,46 +128,26 @@ public class CustomerAccountSteps extends SpringBaseTestNGtest {
         myExtentReport.getETest().info("Clicked on Credit Cards");
     }
 
-    @And("I verify there is a credit card listed")
-    public void verifyCreditCardListed () {
-        size = appPages.customerCreditCardListPage.getCardTypeListSize();
-        myExtentReport.getETest().info("Reviewed on Credit Card List");
-        if(size >= 1) {
-            cardType = appPages.customerCreditCardListPage.getCardType(0);
-            myExtentReport.getETest().info("Saved Credit Card Type Displayed");
-            cardNumber = appPages.customerCreditCardListPage.getCardNumber(0);
-            myExtentReport.getETest().info("Saved Credit Card Number Displayed");
-        }
+    @And("I select the first credit card listed")
+    public void selectFirstCreditCardListed () {
+        cardType = appPages.customerCreditCardListPage.getCardType(0);
+        myExtentReport.getETest().info("Saved the First Credit Card's Type");
+        cardNumber = appPages.customerCreditCardListPage.getCardNumber(0);
+        myExtentReport.getETest().info("Saved the First Credit Card's Number");
     }
 
     @And("I click on the credit card edit link")
     public void clickOnCreditCardEdit() {
-        if(size >= 1) {
-            appPages.customerCreditCardListPage.clickEditLink(0);
-            myExtentReport.getETest().info("Clicked on Credit Card Edit");
-        }
+        appPages.customerCreditCardListPage.clickEditLink(0);
+        myExtentReport.getETest().info("Clicked on Credit Card Edit");
     }
 
     @Then("the card type and card number should match the information from the credit card list")
     public void validateCardTypeAndCardNumberMatchCreditCardList() {
-
-        if(size >=1) {
            String editCardType = appPages.customerCreditCardPage.getSelectedCardType();
-            try {
-                Assert.assertEquals(editCardType, cardType);
-            } catch (Throwable e){
-//                CHECK HERE!!!!!!!!!! NOT Showing on Report
-                 myExtentReport.getETest().fail("Credit Card Type does not match Card Type");
-            }
-
+           Assert.assertEquals(editCardType, cardType, "Credit Card Type does not match Card Type");
            String editCardNumber = appPages.customerCreditCardPage.getCardNumber();
-            try {
-                Assert.assertEquals(editCardNumber, cardNumber);
-            } catch (Throwable e){
-//                CHECK HERE!!!!!!!!!! NOT Showing on Report
-                myExtentReport.getETest().fail("Credit Card Number does not match Card Number");
-            }
-        }
+           Assert.assertEquals(editCardNumber, cardNumber, "Credit Card Number does not match Card Number");
     }
 
     @And("I click on the add credit card link")
@@ -228,7 +197,7 @@ public class CustomerAccountSteps extends SpringBaseTestNGtest {
     public void newCreditCardShouldBeAdded() {
         boolean foundNewCard = false;
 
-        size = appPages.customerCreditCardListPage.getCardTypeListSize();
+        int size = appPages.customerCreditCardListPage.getCardTypeListSize();
         for(int i=0;i<size;i++) {
             cardNumber = appPages.customerCreditCardListPage.getCardNumber(i);
             if(newCardNumber.equals(cardNumber)) {
@@ -236,40 +205,26 @@ public class CustomerAccountSteps extends SpringBaseTestNGtest {
                 break;
             }
         }
-
-        try {
-            Assert.assertTrue(foundNewCard);
-        } catch (Exception e){
-            myExtentReport.getETest().fail("New Credit Card was Not Added to the Credit Card List");
-        }
+        Assert.assertTrue(foundNewCard);
     }
 
-    @And("I view the credit card list and I select a card number to delete")
-    public void viewListAndSelectACardNumberToDelete() {
-        size = appPages.customerCreditCardListPage.getCardNumberListSize();
-        myExtentReport.getETest().info("Reviewed Credit Card List");
-
-        if(size >= 1) {
-            deletedCardNumber = appPages.customerCreditCardListPage.getCardNumber(0);
-            myExtentReport.getETest().info("Deleted a Credit Card from List");
-        }
+    @And("I select the first card number to delete")
+    public void viewListAndSelectFirstCardNumberToDelete() {
+        deletedCardNumber = appPages.customerCreditCardListPage.getCardNumber(0);
+        myExtentReport.getETest().info("Deleted the First Credit Card from List");
     }
 
     @And("I click on the delete link for selected credit card")
     public void clickOnDeleteForSelectedCreditCard() {
-        if(size >= 1) {
-            appPages.customerCreditCardListPage.clickDeleteLink(0);
-            myExtentReport.getETest().info("Clicked on Delete");
-        }
+        appPages.customerCreditCardListPage.clickDeleteLink(0);
+        myExtentReport.getETest().info("Clicked on Delete");
     }
 
     @Then("the deleted credit card should no longer be displayed in the list")
     public void deletedCreditCardShouldNoLongerBeDisplayed() {
-
         boolean cardNumberDeleted = true;
         int newSize = appPages.customerCreditCardListPage.getCardNumberListSize();
 
-        if(size >= 1) {
             for(int i=0;i<newSize;i++){
                 appPages.customerCreditCardListPage.getCardNumber(i);
                 if(deletedCardNumber.equals(cardNumber)) {
@@ -277,14 +232,6 @@ public class CustomerAccountSteps extends SpringBaseTestNGtest {
                     break;
                 }
             }
-
-            try {
-                Assert.assertTrue(cardNumberDeleted);
-            } catch (Exception e){
-                myExtentReport.getETest().fail("Credit Card was not Deleted");
-            }
-        } else {
-                myExtentReport.getETest().info("No credit cards listed to delete");
-        }
+            Assert.assertTrue(cardNumberDeleted);
     }
 }

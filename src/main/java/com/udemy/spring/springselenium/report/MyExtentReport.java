@@ -3,8 +3,8 @@ package com.udemy.spring.springselenium.report;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import io.cucumber.java.Scenario;
 import org.springframework.stereotype.Component;
+import org.testng.ITestResult;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,9 +12,7 @@ import javax.annotation.PreDestroy;
 @Component
 public class MyExtentReport {
     ExtentReports extent;
-
     ExtentTest eTest;
-
 
     @PostConstruct
     public void configExtentReports(){
@@ -32,10 +30,11 @@ public class MyExtentReport {
         return eTest;
     }
 
-    public ExtentTest createTest(String testName, String scenario){
-        eTest = extent.createTest( testName + " - " + scenario);
+    public ExtentTest createTest(String scenario){
+        eTest = extent.createTest(scenario);
         return eTest;
     }
+
 
     @PreDestroy
     public void flushReport(){

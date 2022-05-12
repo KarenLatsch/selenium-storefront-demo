@@ -3,15 +3,10 @@ package com.udemy.spring.springselenium.pages.customer_info;
 import com.udemy.spring.springselenium.pages.Base;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-@Lazy
 @Component
 public class CustomerCreditCardPage extends Base {
-
-    @FindBy(css="a[href^='/storefront/viewaccount/']")
-    public WebElement myAccountLink;
 
     @FindBy(css="input[id='firstName']")
     public WebElement firstName;
@@ -24,7 +19,6 @@ public class CustomerCreditCardPage extends Base {
 
     @FindBy(css="input[id='billingAddress.addressLine2']")
     public WebElement address2;
-
 
     @FindBy(css="input[id='billingAddress.city']")
     public WebElement city;
@@ -56,10 +50,6 @@ public class CustomerCreditCardPage extends Base {
     @FindBy(css="button[type='submit']")
     public WebElement updateCreditCardButton;
 
-
-    public void clickMyAccountLink() {
-        this.myAccountLink.click();
-    }
 
     public void sendKeysFirstName(String firstName) {
         this.firstName.sendKeys(firstName);

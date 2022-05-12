@@ -1,12 +1,15 @@
 package com.udemy.spring.springselenium.flow;
 
+import com.udemy.spring.springselenium.configuration.WaitFactory;
+import io.cucumber.spring.ScenarioScope;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 
+@ScenarioScope
 @Component
 public class MyDriver  {
 
@@ -14,10 +17,7 @@ public class MyDriver  {
     protected WebDriver driver;
 
     @Autowired
-    protected WebDriverWait wait;
-
-//    @Value("${application.storefrontHomePage.url}")
-//    private String storefrontHomePageURL;
+    protected WaitFactory waitFactory;
 
     public void getStorefrontHomePage() {
         driver.get("http://localhost:8080/storefront/listproducts");
@@ -27,10 +27,11 @@ public class MyDriver  {
         return driver.getCurrentUrl();
     }
 
-    public WebDriver setup(){
-        return new ChromeDriver();
+    public WebDriverWait getDriverWait(){
+        return waitFactory.getWait();
     }
 
+    @PreDestroy
     public void tearDown(){
         driver.quit();
     }

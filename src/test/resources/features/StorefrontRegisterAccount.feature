@@ -1,9 +1,8 @@
 Feature: Register Account Functionally
   This is to validate that a user can register a new account.
 
-  @All @Storefront
   Scenario Outline: User should be able to register a new account as new user.
-    Given I navigate to the StoreFront Demo home page "Register Account Functionally Test"
+    Given I navigate to the StoreFront Demo home page
     When I click on the register to buy
     And I enter in the customer's information
       |firstName      |Karen              |

@@ -1,6 +1,5 @@
 package com.udemy.spring.springselenium.bdd;
 
-import com.aventstack.extentreports.ExtentTest;
 import com.udemy.spring.springselenium.SpringBaseTestNGtest;
 import com.udemy.spring.springselenium.flow.MyDriver;
 import com.udemy.spring.springselenium.pages.AppPages;
@@ -24,7 +23,6 @@ public class StorefrontRegisterSteps extends SpringBaseTestNGtest {
 
     @Autowired
     MyExtentReport myExtentReport;
-
 
     @When("I click on the register to buy")
     public void clickOnRegisterToBuy() {
@@ -81,11 +79,6 @@ public class StorefrontRegisterSteps extends SpringBaseTestNGtest {
             accountStatus = "not added";} else {
             accountStatus = "added";
         }
-
-        try {
-            Assert.assertEquals(accountStatus, result);
-        } catch (Exception e){
-            myExtentReport.getETest().fail("New Account was Not Added");
-        }
+        Assert.assertEquals(accountStatus, result);
     }
 }

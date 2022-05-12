@@ -1,8 +1,7 @@
-@All @Customer
 Feature: Customer Account Functionality
 
   Background:
-    Given I navigate to the StoreFront Demo home page "Customer Account Functionality Tests"
+    Given I navigate to the StoreFront Demo home page
     When I click on the login link
 
   Scenario Outline: Customer can change their current password to a new password
@@ -48,7 +47,7 @@ Feature: Customer Account Functionality
     And I click on the login button
     And I click on the my account link
     And I click on the credit cards link
-    And I verify there is a credit card listed
+    And I select the first credit card listed
     And I click on the credit card edit link
     Then the card type and card number should match the information from the credit card list
     Examples:
@@ -87,7 +86,7 @@ Feature: Customer Account Functionality
     And I click on the login button
     And I click on the my account link
     And I click on the credit cards link
-    And I view the credit card list and I select a card number to delete
+    And I select the first card number to delete
     And I click on the delete link for selected credit card
     Then the deleted credit card should no longer be displayed in the list
     Examples:

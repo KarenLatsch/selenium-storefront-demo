@@ -3,10 +3,8 @@ package com.udemy.spring.springselenium.pages.customer_info;
 import com.udemy.spring.springselenium.pages.Base;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-@Lazy
 @Component
 public class CustomerChangePasswordPage extends Base {
 

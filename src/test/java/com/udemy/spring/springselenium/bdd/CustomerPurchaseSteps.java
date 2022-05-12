@@ -1,6 +1,5 @@
 package com.udemy.spring.springselenium.bdd;
 
-import com.aventstack.extentreports.ExtentTest;
 import com.udemy.spring.springselenium.SpringBaseTestNGtest;
 import com.udemy.spring.springselenium.pages.AppPages;
 import com.udemy.spring.springselenium.report.MyExtentReport;
@@ -29,7 +28,6 @@ public class CustomerPurchaseSteps extends SpringBaseTestNGtest {
 
     @And("I view items in my cart and I select a product to remove")
     public void viewItemsInCartAndSelectAProductToRemove() {
-
         int size = appPages.cartItemListPage.getProductNameListSize();
         myExtentReport.getETest().info("Reviewed List of Products");
 
@@ -55,7 +53,6 @@ public class CustomerPurchaseSteps extends SpringBaseTestNGtest {
 
     @Then("the removed product should no longer be displayed in the cart items list")
     public void productShouldNoLongerBeDisplayedInCartItemsList() {
-
         if(itemsInCartToDeleted) {
             boolean foundRemovedProduct = false;
 
@@ -67,19 +64,12 @@ public class CustomerPurchaseSteps extends SpringBaseTestNGtest {
                     break;
                 }
             }
-            System.out.println(removedProduct);
-
-             try {
-                Assert.assertFalse(foundRemovedProduct);
-            } catch (Exception e){
-                myExtentReport.getETest().fail("Product was not Removed from the Cart");
-            }
+            Assert.assertFalse(foundRemovedProduct);
         }
     }
 
     @And("I view the product list and I select a product to view")
     public void viewProductListAndSelectAProductToView() {
-
         int size = appPages.productListPage.getProductNameListSize();
         myExtentReport.getETest().info("Reviewed List of Products");
 
@@ -111,12 +101,8 @@ public class CustomerPurchaseSteps extends SpringBaseTestNGtest {
 
     @Then("the order should be placed")
     public void orderShouldBePlaced() {
-        String orderplacedMessage = appPages.checkoutPage.getOrderPlacedMessage();
-        try {
-            Assert.assertEquals("Your Order has been placed. Thank You for Your Order!!", orderplacedMessage);
-        } catch (Exception e){
-            myExtentReport.getETest().fail("Order was Not Successfully Placed");
-        }
+        String orderPlacedMessage = appPages.checkoutPage.getOrderPlacedMessage();
+        Assert.assertEquals("Your Order has been placed. Thank You for Your Order!!", orderPlacedMessage);
     }
 
 }

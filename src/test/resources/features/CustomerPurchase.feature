@@ -1,8 +1,7 @@
-@All @Customer
 Feature: Customer purchase Functionality
 
   Background:
-    Given I navigate to the StoreFront Demo home page "Customer purchase Functionality Tests"
+    Given I navigate to the StoreFront Demo home page
     When I click on the login link
 
   Scenario Outline: Customer can delete items from their cart
